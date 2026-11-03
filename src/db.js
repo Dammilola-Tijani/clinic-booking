@@ -40,6 +40,11 @@ create table if not exists idempotency (
   response  jsonb not null
 );
 
+create table if not exists meta (
+  key   text primary key,
+  value text not null
+);
+
 create table if not exists attempts (
   id    bigserial primary key,
   email text not null,

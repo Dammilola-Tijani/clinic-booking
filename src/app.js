@@ -72,6 +72,9 @@ api.post('/reset', wrap(async (req, res) => {
 
   await tx(async (c) => {
     await c.query('truncate bookings, slots, idempotency, attempts');
+    // From now on the slots belong to whoever called /reset, so the demo
+    // top-up must leave them alone.
+    await c.query(`insert into meta (key, value) values ('custom_slots', '1') on conflict (key) do nothing`);
     for (const r of rows) {
       await c.query('insert into slots (id, provider, start_at, end_at) values ($1,$2,$3,$4)', r);
     }

@@ -46,6 +46,21 @@ async function main() {
     try { await fn(); passed++; console.log('  ok  ', name); } catch (e) { console.log('  FAIL', name, '\n      ', e.message); process.exitCode = 1; }
   };
 
+  console.log('demo slots');
+  {
+    const { topUpDemoSlots } = require('../src/seed');
+    try {
+      const added = await topUpDemoSlots();
+      assert.ok(added >= 60, `expected a fortnight of slots, got ${added}`);
+      assert.strictEqual(await topUpDemoSlots(), 0, 'second run must add nothing');
+      assert.ok((await call('GET', '/slots')).json.slots.length >= 60);
+      await reset();
+      assert.strictEqual(await topUpDemoSlots(), 0, 'must not touch slots after /reset');
+      assert.strictEqual((await call('GET', '/slots')).json.slots.length, 3);
+      passed++; console.log('  ok   tops up once, never after /reset');
+    } catch (e) { console.log('  FAIL demo slots', '\n      ', e.message); process.exitCode = 1; }
+  }
+
   console.log('level 1');
   await test('lists slots earliest first with availability', async () => {
     await reset([{ id: 'b', provider: 'X', start: future(5), end: future(6) }, { id: 'a', provider: 'X', start: future(2), end: future(3) }]);
