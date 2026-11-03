@@ -1,0 +1,13 @@
+services:
+  - type: web
+    name: clinic-booking
+    runtime: node
+    plan: free
+    buildCommand: npm ci --omit=dev
+    startCommand: npm start
+    healthCheckPath: /healthz
+    envVars:
+      - key: DATABASE_URL
+        sync: false # paste the Neon connection string
+      - key: API_KEY
+        sync: false # the key you submit in the form

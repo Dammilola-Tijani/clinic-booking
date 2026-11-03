@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Marigold Clinic · Book an appointment</title>
+<meta name="description" content="Pick a time that suits you and book a visit with one of our doctors.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600&family=Newsreader:opsz,wght@6..72,400;6..72,500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="top">
+  <a class="brand" href="./">Marigold Clinic</a>
+  <nav>
+    <button class="link" id="open-mine" type="button">My bookings</button>
+  </nav>
+</header>
+
+<main>
+  <section id="view-book" class="book">
+    <div class="pick">
+      <p class="eyebrow">Book a visit</p>
+      <h1>Find a time that works for you.</h1>
+
+      <div class="providers" id="providers" role="radiogroup" aria-label="Doctor"></div>
+      <div class="days" id="days" role="tablist" aria-label="Day"></div>
+      <div id="slots" class="slots" aria-live="polite"></div>
+    </div>
+
+    <aside class="form-col" id="form-col" aria-live="polite">
+      <form id="form" novalidate hidden>
+        <p class="eyebrow">Your appointment</p>
+        <div class="summary" id="summary"></div>
+
+        <label for="name">Full name</label>
+        <input id="name" name="name" autocomplete="name" required maxlength="120">
+        <p class="field-error" id="name-err"></p>
+
+        <label for="email">Email</label>
+        <input id="email" name="email" type="email" autocomplete="email" inputmode="email" required>
+        <p class="field-error" id="email-err"></p>
+
+        <p class="form-error" id="form-err" role="alert"></p>
+        <button class="primary" id="submit" type="submit">Confirm booking</button>
+        <button class="link" id="cancel-pick" type="button">Choose a different time</button>
+      </form>
+      <div class="hint" id="hint">
+        <p>Select a time on the left. You'll get a reference you can use to look up or cancel the visit.</p>
+      </div>
+    </aside>
+  </section>
+
+  <section id="view-done" class="done" hidden>
+    <div class="ticket" id="ticket"></div>
+    <div class="done-actions">
+      <button class="primary" id="book-another" type="button">Book another visit</button>
+      <button class="link" id="open-mine-2" type="button">See all my bookings</button>
+    </div>
+  </section>
+
+  <section id="view-mine" class="mine" hidden>
+    <button class="link back" id="back" type="button">← Back to booking</button>
+    <h2>My bookings</h2>
+    <form id="mine-form" class="mine-form" novalidate>
+      <label for="mine-email">Email you booked with</label>
+      <div class="row">
+        <input id="mine-email" type="email" autocomplete="email" inputmode="email" required>
+        <button class="primary" type="submit">Find</button>
+      </div>
+      <p class="field-error" id="mine-err"></p>
+    </form>
+    <ul class="list" id="mine-list"></ul>
+    <button class="secondary" id="more" type="button" hidden>Show more</button>
+  </section>
+</main>
+
+<footer>
+  <p>Marigold Clinic is a demo. No real appointments are made.</p>
+</footer>
+
+<script src="app.js"></script>
+</body>
+</html>
